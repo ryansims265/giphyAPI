@@ -1,21 +1,67 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Giphy API</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <form>
-            Add Another Animal<br>
-            <input type="text" id="useranimal">
-            <button>Submit</button>
-          </form>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script>
-        
-        
-        </script>
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Giphy API</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="buttonhere">
+
+    </div>
+    <form>
+        Add Another Animal<br>
+        <input type="text" id="user-animal">
+        <button id="submit">Submit</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var animals = ["Panda", "Tiger", "Otter", "Lynx"];
+
+        function renderButtons() {
+            $("#buttonhere").empty();
+
+            for (var i = 0; i < animals.length; i++) {
+                var a = $("<button>");
+                a.addClass("animal");
+                a.attr("data-name", animals[i]);
+                a.text(animals[i]);
+                $("#buttonhere").append(a);
+            }
+        }
+
+        renderButtons();
+
+
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
+            var button = $("<button>");
+            var newanimal = $("#user-animal").val();
+            console.log(newanimal);
+            button.text(newanimal);
+            $("#buttonhere").append(button);
+            $("#user-animal").text("");
+        })
+
+        $(".animalbutton").on("click", function (event) {
+            console.log($("Button Clicked"));
+        })
+
+        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + newanimal;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
+    });
+
+
+    </script>
+</body>
+
 </html>
