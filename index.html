@@ -18,6 +18,9 @@
         Add Another Animal<br>
         <input type="text" id="user-animal">
         <button id="submit">Submit</button>
+        <div id="gifs-here">
+
+        </div>
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -55,12 +58,18 @@
 
         var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + newanimal;
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-      console.log(response);
-    });
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            var imageUrl = response.data.image_original_url;
+            var animalImage = $("<img>");
+            animalImage.attr("src", imageUrl);
+            animalImage.attr("alt", "animal image");
+            $("#gifs-here").prepend(animalImage);
+        });
+
 
 
     </script>
