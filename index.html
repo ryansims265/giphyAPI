@@ -27,12 +27,13 @@
 
         var animals = ["Panda", "Tiger", "Otter", "Lynx"];
 
+        //This is to create the preset buttons
         function renderButtons() {
             $("#buttonhere").empty();
 
             for (var i = 0; i < animals.length; i++) {
                 var a = $("<button>");
-                a.addClass("animal");
+                a.addClass("animalbutton");
                 a.attr("data-name", animals[i]);
                 a.text(animals[i]);
                 $("#buttonhere").append(a);
@@ -40,7 +41,6 @@
         }
 
         renderButtons();
-
 
         $("#submit").on("click", function (event) {
             event.preventDefault();
@@ -51,24 +51,26 @@
             $("#buttonhere").append(button);
             $("#user-animal").text("");
         })
-
+        // http://api.giphy.com/v1/gifs/search?q=adventure+time&api_key=dc6zaTOxFJmzC&limit=1&fmt=html
         $(".animalbutton").on("click", function (event) {
             console.log($("Button Clicked"));
+            var testing = "tiger";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + testing + "&api_key=UEwcmETVElqjuwVy00SBKoIPXpye5k80";
+            console.log(queryURL);
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response.data[1].images);
+                var imageUrl = response.data[1].images.fixed_height.url;
+                var animalImage = $("<img>");
+                animalImage.attr("src", imageUrl);
+                animalImage.attr("alt", "animal image");
+                $("#gifs-here").prepend(animalImage);
+            });
         })
 
-        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + newanimal;
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            console.log(response);
-            var imageUrl = response.data.image_original_url;
-            var animalImage = $("<img>");
-            animalImage.attr("src", imageUrl);
-            animalImage.attr("alt", "animal image");
-            $("#gifs-here").prepend(animalImage);
-        });
 
 
 
