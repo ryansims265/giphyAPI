@@ -27,7 +27,7 @@
 
         var animals = ["Panda", "Tiger", "Otter", "Lynx"];
 
-        //This is to create the preset buttons
+        //This is to create the preset buttons 
         function renderButtons() {
             $("#buttonhere").empty();
 
@@ -41,22 +41,26 @@
         }
 
         renderButtons();
-
+//Will create the button from the user-input 
         $("#submit").on("click", function (event) {
             event.preventDefault();
             var button = $("<button>");
+            button.addClass("animalbutton");
             var newanimal = $("#user-animal").val();
             console.log(newanimal);
             button.text(newanimal);
             $("#buttonhere").append(button);
             $("#user-animal").text("");
-        })
-        // http://api.giphy.com/v1/gifs/search?q=adventure+time&api_key=dc6zaTOxFJmzC&limit=1&fmt=html
+        });
+
+//Will pull the Gif and display on the page 
         $(".animalbutton").on("click", function (event) {
             console.log($("Button Clicked"));
-            var testing = "tiger";
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + testing + "&api_key=UEwcmETVElqjuwVy00SBKoIPXpye5k80";
+            var character = $(this).text();
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=UEwcmETVElqjuwVy00SBKoIPXpye5k80";
             console.log(queryURL);
+            
+//Here is the API to pull the gif 
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -65,7 +69,7 @@
                 var imageUrl = response.data[1].images.fixed_height.url;
                 var animalImage = $("<img>");
                 animalImage.attr("src", imageUrl);
-                animalImage.attr("alt", "animal image");
+                animalImage.attr("alt", "animal gif");
                 $("#gifs-here").prepend(animalImage);
             });
         })
