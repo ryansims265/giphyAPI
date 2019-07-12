@@ -11,13 +11,19 @@
 </head>
 
 <body>
+    <h1 id="page-title">Add Your Favorite Black and White Movies!</h1>
+    
+    <div id="parent1">
     <div id="buttonhere">
 
     </div>
-    <form>
-        Add more movies<br>
+</div>
+<div id="parent2">
+    <form id="form">
+        <br>
         <input type="text" id="user-movies">
         <button id="submit">Anotha One!</button>
+    </div>
         <div id="gifs-here">
 
         </div>
@@ -25,7 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-        var movies = ["Some Like it Hot", "Double Indemnity", "Citizen Kane", "Casablanca"];
+        var movies = ["Some Like it Hot", "Double Indemnity", "Citizen Kane", "Casablanca", "Psycho", "The Maltese Falcon", "Dr.Strangelove", "Metropolis", "12 Angry Men", "Nosferatu", "The Grapes of Wrath", "A Streetcar named Desire", "It Happened One Night", "To Kill a Mockingbird",];
 
         //This is to create the preset buttons 
         function renderButtons() {
@@ -37,11 +43,13 @@
                 a.attr("data-name", movies[i]);
                 a.text(movies[i]);
                 $("#buttonhere").append(a);
+
+                
             }
         }
 
         renderButtons();
-//Will create the button from the user-input 
+        //Will create the button from the user-input 
         $("#submit").on("click", function (event) {
             event.preventDefault();
             var newmovie = $("#user-movies").val();
@@ -52,7 +60,7 @@
             $("#user-movies").val("");
         });
 
-//Will pull the Gif and display on the page 
+        //Will pull the Gif and display on the page 
         $(document).on("click", ".movies-button", function (event) {
 
             console.log($("Button Clicked"));
@@ -60,19 +68,40 @@
             console.log(newmovie);
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + newmovie + "&api_key=UEwcmETVElqjuwVy00SBKoIPXpye5k80";
             console.log(queryURL);
-            
-//Here is the API to pull the gif 
+
+            //Here is the API to pull the gif 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
                 console.log(response.data[1].images);
-                var imageUrl = response.data[1].images.fixed_height.url;
-                var moviesImage = $("<img>");
-                moviesImage.attr("src", imageUrl);
-                moviesImage.attr("alt", "movies gif");
-                $("#gifs-here").prepend(moviesImage);
+
+
+                for (var i = 0; i < 10; i++) {
+                    var imageUrl = response.data[i].images.fixed_height_still.url;
+                    var moviesImage = $("<img>");
+                    moviesImage.attr("src", imageUrl);
+                    moviesImage.addClass("movies-gif");
+                    moviesImage.attr("alt", "movies gif");
+                    $("#gifs-here").prepend(moviesImage);
+
+
+                    $(".movies-gif").click(function () {
+                    console.log("Image Clicked!")
+                    $(this).attr("src", response.data[i].images.fixed_height.url);
+
+                    $(".movies-gif").click(function () {
+                    console.log("Image Clicked!")
+                    $(this).attr("src", response.data[i].images.fixed_height_still.url);
+                });
+                });
+
+                
+
+                };
+                
             });
+            
         })
 
 

@@ -1,4 +1,45 @@
 .movies-button{
     color: blue; 
-    background-color: pink;
+    background-color: rgb(211, 236, 70);
+    text-align: center;
+    display: inline-block;
+}
+
+body{
+    background-image: url("images/background.png")
+}
+
+.movies-button{
+    text-align: center;
+}
+
+#page-title{
+    color: white;
+    font-size: 35px;
+    text-align: center;
+}
+
+.submit{
+    text-align: center;
+}
+
+.buttonhere{
+    display: inline-block;
+    text-align: center;
+}
+
+.parent1{
+    text-align: center;
+}
+
+.parent2{
+    text-align: center;
+}
+
+.form{
+    display: inline-block;
+    max-width: 200px;
+    margin: 0 auto;
+    left: 50%;
+    color: blue;
 }
