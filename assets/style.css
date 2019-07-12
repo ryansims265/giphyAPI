@@ -11,9 +11,6 @@ body{
     background-repeat: no-repeat;
 }
 
-.movies-button{
-    text-align: center;
-}
 
 #page-title{
     color: white;
@@ -21,27 +18,8 @@ body{
     text-align: center;
 }
 
-.submit{
-    text-align: center;
+#gifs-here{
+    color:white;
 }
 
-.buttonhere{
-    display: inline-block;
-    text-align: center;
-}
 
-.parent1{
-    text-align: center;
-}
-
-.parent2{
-    text-align: center;
-}
-
-.form{
-    display: inline-block;
-    max-width: 200px;
-    margin: 0 auto;
-    left: 50%;
-    color: blue;
-}

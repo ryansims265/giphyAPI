@@ -63,7 +63,7 @@
         //Will pull the Gif and display on the page 
         $(document).on("click", ".movies-button", function (event) {
 
-            console.log($("Button Clicked"));
+            console.log("Button Clicked");
             var newmovie = $(this).text();
             console.log(newmovie);
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + newmovie + "&api_key=UEwcmETVElqjuwVy00SBKoIPXpye5k80";
@@ -74,16 +74,18 @@
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response.data[1].images);
+                console.log(response);
 
 
                 for (var i = 0; i < 10; i++) {
                     var imageUrl = response.data[i].images.fixed_height_still.url;
                     var moviesImage = $("<img>");
+                    var moviesRating = response.data[i].rating;
                     moviesImage.attr("src", imageUrl);
                     moviesImage.addClass("movies-gif");
                     moviesImage.attr("alt", "movies gif");
                     $("#gifs-here").prepend(moviesImage);
+                    $("#gifs-here").prepend("    " + moviesRating + "   ");
 
 
                     $(".movies-gif").click(function () {
